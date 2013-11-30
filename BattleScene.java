@@ -8,6 +8,7 @@ class BattleScene extends GameScene {
 	ArrayList<GameObject> gameObjects;
 	CommandBox command;
 	CommandBox skill;
+	MessageBox message;
 	
 	public BattleScene(DrawPanel panel) {
 		super(panel);
@@ -22,6 +23,9 @@ class BattleScene extends GameScene {
 		skill = new CommandBox(30, 500, 850, 170, 230, skills);
 		skill.visible = false;
 		gameObjects.add(skill);
+		
+		message = new MessageBox(30, 500, 850, 170, "どうする？");
+		gameObjects.add(message);
 	}
 	
 	public void update() {
@@ -72,21 +76,31 @@ class BattleScene extends GameScene {
 		}
 	}
 	
+	// "技"が選択されたとき
 	private void commandEnter() {
 		switch(command.index) {
 			case 0 : {
 				command.enabled = false;
+				message.visible = false;
 				skill.visible = true;
+				skill.index = 0;
 			} break;
 			
 		}
 	}
 	
+	// "技"の中の技が選択されたとき
 	private void skillEnter() {
 		switch(skill.index) {
 			case 0 : {
 				this.HP -= 100;
 			} break;
+			
+			case 3 : {
+				command.enabled = true;
+				message.visible = true;
+				skill.visible = false;
+			}
 		}
 	}
 	

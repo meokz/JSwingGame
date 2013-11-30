@@ -10,7 +10,7 @@ class GameScene {
 		this.panel = panel;
 	}
 	
-	// 更新処理
+	// 更新
 	public void update() { }
 	
 	// 描画

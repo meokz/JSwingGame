@@ -6,7 +6,7 @@ class CommandBox extends GameObject {
 	int width;
 	int height;
 	
-	Image back;
+	Image background;
 	
 	Font font;
 	// 選択されている番号
@@ -34,7 +34,7 @@ class CommandBox extends GameObject {
 		commands[3] = new Command(this, text[3], 190 + offset, 130);
 		
 		try {
-			back = ImageIO.read(new File("Resorce\\Box.jpg"));
+			background = ImageIO.read(new File("Resorce\\Box.jpg"));
 		} catch(Exception e) { }
 	}
 	
@@ -44,7 +44,7 @@ class CommandBox extends GameObject {
 		
 		graphics.setFont(this.font);
 		
-		graphics.drawImage(this.back, this.x, this.y, this.width, this.height, panel);
+		graphics.drawImage(this.background, this.x, this.y, this.width, this.height, panel);
 		
 		// 現在のindexのコマンドを選択状態にする
 		for(int i = 0; i < commands.length; i++) {

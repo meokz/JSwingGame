@@ -43,7 +43,7 @@ class DrawPanel extends JPanel implements KeyListener {
 	public DrawPanel() {
 		// タイトル画面を生成
 		this.setScene(new TitleScene(this));
-		// Timerを設定
+		// Timerを設定(30fps)
 		timer = new Timer(33, new TimerListener());
 	}
 	
@@ -66,13 +66,13 @@ class DrawPanel extends JPanel implements KeyListener {
 		// アンチエイジングの設定
 		graphics.setRenderingHint(RenderingHints.KEY_TEXT_ANTIALIASING,
 			RenderingHints.VALUE_TEXT_ANTIALIAS_ON);
-		// 描画処理
+		// シーンの描画
 		scene.draw(graphics);
 	}
 	
 	@Override
 	public void keyPressed(KeyEvent e) {
-		// 入力処理
+		// シーンの入力
 		scene.input(e);
 	}
 	
@@ -85,7 +85,7 @@ class DrawPanel extends JPanel implements KeyListener {
 	class TimerListener implements ActionListener {
 		@Override
 		public void actionPerformed(ActionEvent e) {
-			// 更新処理
+			// シーンの更新
 			scene.update();
 			// 描画
 			repaint();

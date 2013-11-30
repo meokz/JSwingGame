@@ -14,15 +14,18 @@ class TitleScene extends GameScene {
 		} catch(Exception e) { }
 	}
 	
+	@Override
 	public void update() {
 		
 	}
 	
+	@Override
 	public void draw(Graphics2D graphics) {
 		graphics.drawString("たいとる画面", 30, 30);
 		graphics.drawImage(image, 0, 0, panel);
 	}
 	
+	@Override
 	public void input(KeyEvent key) {
 		switch(key.getKeyCode()) {
 		
