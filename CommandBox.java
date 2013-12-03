@@ -43,6 +43,7 @@ class CommandBox extends GameObject {
 		if(!this.visible) return;
 		
 		graphics.setFont(this.font);
+		graphics.setColor(Color.white);
 		
 		graphics.drawImage(this.background, this.x, this.y, this.width, this.height, panel);
 		

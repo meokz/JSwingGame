@@ -9,6 +9,8 @@ class BattleScene extends GameScene {
 	CommandBox command;
 	CommandBox skill;
 	MessageBox message;
+	GageBox hp1;
+	GageBox hp2;
 	
 	public BattleScene(DrawPanel panel) {
 		super(panel);
@@ -26,6 +28,8 @@ class BattleScene extends GameScene {
 		
 		message = new MessageBox(30, 500, 850, 170, "どうする？");
 		gameObjects.add(message);
+		
+		hp1 = new GageBox(950, 380, 230, 40);
 	}
 	
 	public void update() {
@@ -34,8 +38,10 @@ class BattleScene extends GameScene {
 	
 	int HP = 1000;
 	public void draw(Graphics2D graphics) {
-		graphics.drawString(HP + " / 1000", 100, 100);
+		graphics.drawString(HP + " / 1000" + "    "  + (int)((float)HP / 1000 *400), 100, 100);
 		for(GameObject gameObject : gameObjects) gameObject.draw(panel, graphics);
+		
+		hp1.draw(panel, graphics, 1000, this.HP);
 	}
 	
 	public void input(KeyEvent key) {

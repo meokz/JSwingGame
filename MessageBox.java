@@ -29,6 +29,7 @@ class MessageBox extends GameObject {
 	public void draw(DrawPanel panel, Graphics2D graphics) {
 		if(!visible) return;
 		graphics.setFont(this.font);
+		graphics.setColor(Color.white);
 		graphics.drawImage(this.background, this.x, this.y, this.width, this.height, panel);
 		graphics.drawString(this.text, this.x + 30, this.y + 60);
 	}
