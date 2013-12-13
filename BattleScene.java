@@ -2,6 +2,13 @@ import java.util.*;
 import java.awt.*;
 import java.awt.event.*;
 
+// 状態遷移
+enum BattleState {
+	Command, 	// コマンドフェーズ
+	Player, 	// 自分の攻撃フェーズ
+	Enemy, 		// 敵の攻撃フェーズ
+}
+
 // 戦闘画面
 class BattleScene extends GameScene {
 
@@ -9,13 +16,27 @@ class BattleScene extends GameScene {
 	CommandBox command;
 	CommandBox skill;
 	MessageBox message;
-	GageBox hp1;
-	GageBox hp2;
+	MessageBox point;
+
+	// お互いに与える攻撃力。アニメーション用
+	int attack;
 	
+	BattleState state = BattleState.Command;
+	
+	Monster player, enemy;
+
+	int turn = 1;
+
 	public BattleScene(DrawPanel panel) {
 		super(panel);
 		
 		gameObjects = new ArrayList<GameObject>();
+		
+		player = new PlayerMonster();
+		gameObjects.add(player);
+		
+		enemy = new EnemyMonster();
+		gameObjects.add(enemy);
 		
 		String[] commands = {"技", "交代", "防御", "降参" };
 		command = new CommandBox(900, 500, 350, 170, commands);
@@ -23,62 +44,66 @@ class BattleScene extends GameScene {
 		
 		String[] skills = {"すごいパンチ", "トンファーキック", "ああああ", "いいいい" };
 		skill = new CommandBox(30, 500, 850, 170, 230, skills);
-		skill.visible = false;
-		gameObjects.add(skill);
 		
+		point = new MessageBox(900, 500, 350, 170, "");
+
 		message = new MessageBox(30, 500, 850, 170, "どうする？");
 		gameObjects.add(message);
 		
-		hp1 = new GageBox(950, 380, 230, 40);
 	}
 	
 	public void update() {
-		
-	}
-	
-	int HP = 1000;
-	public void draw(Graphics2D graphics) {
-		graphics.drawString(HP + " / 1000" + "    "  + (int)((float)HP / 1000 *400), 100, 100);
-		for(GameObject gameObject : gameObjects) gameObject.draw(panel, graphics);
-		
-		hp1.draw(panel, graphics, 1000, this.HP);
-	}
-	
-	public void input(KeyEvent key) {
-		switch(key.getKeyCode()) {
-		
-			// Enterキーが入力されたときの処理
-			case KeyEvent.VK_ENTER : {
-				if(command.enabled) {
-					commandEnter();
-				} else if(skill.enabled) {
-					skillEnter();
+		switch(state) {
+			// コマンドフェーズ
+			case Command : {
+				
+				
+			} break;
+			
+			// 自分の攻撃フェーズ
+			case Player : {
+				if(attack == 0) {
+					// 自分の攻撃終了。敵の攻撃フェーズへ
+					state = BattleState.Enemy;
+					message.setText("てきの攻撃！！！");
+					attack = enemy.status.attack;
+				} else {
+					enemy.HP -= 1;
+					this.attack -= 1;
 				}
 			} break;
 			
-			// Upキー
-			case KeyEvent.VK_UP : {
-				command.Up();
-				skill.Up();
+			// 敵の攻撃フェーズ
+			case Enemy : {
+				if(attack == 0) {
+					// 敵の攻撃終了。コマンドフェーズへ
+					state = BattleState.Command;
+					turn++;
+					message.setText("どうする？");
+					gameObjects.remove(point);
+					gameObjects.add(command);
+				} else {
+					// 攻撃中
+					player.HP -= 1;
+					this.attack -= 1;
+				}
 			} break;
 			
-			// Downキー
-			case KeyEvent.VK_DOWN : {
-				command.Down();
-				skill.Down();
-			} break;
-			
-			// Rihgtキー
-			case KeyEvent.VK_RIGHT : {
-				command.Right();
-				skill.Right();
-			} break;
-			
-			// Leftキー
-			case KeyEvent.VK_LEFT : {
-				command.Left();
-				skill.Left();
-			} break;
+		}
+	}
+	
+	public void draw(Graphics2D graphics) {
+		for(GameObject gameObject : gameObjects) gameObject.draw(panel, graphics);
+	}
+	
+	public void input(KeyEvent key) {
+		LABEL : for(GameObject gameObject : gameObjects) {
+			int result = gameObject.input(key);
+			if(result != 0) {
+				if(gameObject == command) commandEnter();
+				else if(gameObject == skill) skillEnter(result);
+				break LABEL;
+			}
 		}
 	}
 	
@@ -86,27 +111,34 @@ class BattleScene extends GameScene {
 	private void commandEnter() {
 		switch(command.index) {
 			case 0 : {
-				command.enabled = false;
-				message.visible = false;
-				skill.visible = true;
-				skill.index = 0;
+				gameObjects.remove(command);
+				gameObjects.remove(message);
+				gameObjects.add(skill);
+				gameObjects.add(point);
 			} break;
 			
 		}
 	}
 	
 	// "技"の中の技が選択されたとき
-	private void skillEnter() {
+	private void skillEnter(int key) {
+		if(key == 2) {
+			gameObjects.remove(skill);
+			gameObjects.remove(point);
+			gameObjects.add(message);
+			gameObjects.add(command);
+			return;
+		}
+
 		switch(skill.index) {
 			case 0 : {
-				this.HP -= 100;
+				state = BattleState.Player;
+				attack = player.status.attack;
+				gameObjects.remove(skill);
+				gameObjects.add(message);
+				message.setText("おれの攻撃！！！");
 			} break;
-			
-			case 3 : {
-				command.enabled = true;
-				message.visible = true;
-				skill.visible = false;
-			}
+
 		}
 	}
 	

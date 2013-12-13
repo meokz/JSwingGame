@@ -23,6 +23,8 @@ class GameFrame extends JFrame {
 		panel = new DrawPanel();
 		this.getContentPane().add(panel);
 		this.addKeyListener(panel);
+
+		new FontInstance();
 	}
 	
 	// ゲームの実行

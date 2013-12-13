@@ -10,6 +10,6 @@ class GameObject {
 	
 	public void update() { }
 	public void draw(DrawPanel panel, Graphics2D graphics) { }
-	public void input(KeyEvent key) { }
+	public int input(KeyEvent key) { return 0; }
 	
 }

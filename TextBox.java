@@ -12,7 +12,7 @@ class TextBox extends GameObject {
 		this.offsetX = offsetX;
 		this.offsetY = offsetY;*/
 		
-		font = new ("ƒƒCƒŠƒI", Font.PLAIN, 20);
+		font = FontInstance.meiryo20;
 	}
 	
 	@Override

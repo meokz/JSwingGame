@@ -1,5 +1,6 @@
 import java.io.*;
 import java.awt.*;
+import java.awt.event.*;
 import javax.imageio.*;
 
 class CommandBox extends GameObject {
@@ -26,8 +27,8 @@ class CommandBox extends GameObject {
 		this.width = width;
 		this.height = height;
 		this.index = 0;
-		this.font = new Font("メイリオ", Font.PLAIN, 40);
-		
+		this.font = FontInstance.meiryo40;
+				
 		commands[0] = new Command(this, text[0], 40, 60);
 		commands[1] = new Command(this, text[1], 190 + offset, 60);
 		commands[2] = new Command(this, text[2], 40, 130);
@@ -56,29 +57,46 @@ class CommandBox extends GameObject {
 		// 各コマンドの文字列描画
 		for(Command command : commands) command.draw(graphics);
 	}
-	
-	public void Up() {
-		if(!this.enabled) return;
-		if(index <= 1) index += 2;
-		else index -= 2;
-	}
-	
-	public void Down() {
-		if(!this.enabled) return;
-		if(index <= 1) index += 2;
-		else index -= 2;
-	}
-	
-	public void Right() {
-		if(!this.enabled) return;
-		if(index == 0 || index == 2) index += 1;
-		else index -= 1;
-	}
-	
-	public void Left() {
-		if(!this.enabled) return;
-		if(index == 1 || index == 3) index -= 1;
-		else index += 1;
-	}
-	
+
+	@Override
+	public int input(KeyEvent key) {
+		switch(key.getKeyCode()) {
+		
+			// Enterキーが入力されたときの処理
+			case KeyEvent.VK_ENTER : {
+				return 1;
+			}
+			
+			// ESCAPEキー
+			case KeyEvent.VK_ESCAPE : {
+				return 2;
+			}
+
+			// Upキー
+			case KeyEvent.VK_UP : {
+				if(index <= 1) index += 2;
+				else index -= 2;
+			} break;
+			
+			// Downキー
+			case KeyEvent.VK_DOWN : {
+				if(index <= 1) index += 2;
+				else index -= 2;
+			} break;
+			
+			// Rihgtキー
+			case KeyEvent.VK_RIGHT : {
+				if(index == 0 || index == 2) index += 1;
+				else index -= 1;
+			} break;
+			
+			// Leftキー
+			case KeyEvent.VK_LEFT : {
+				if(index == 1 || index == 3) index -= 1;
+				else index += 1;
+			} break;
+		}
+		
+		return 0;
+	}	
 }

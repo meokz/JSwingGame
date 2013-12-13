@@ -33,5 +33,8 @@ class MessageBox extends GameObject {
 		graphics.drawImage(this.background, this.x, this.y, this.width, this.height, panel);
 		graphics.drawString(this.text, this.x + 30, this.y + 60);
 	}
-
+	
+	public void setText(String text) {
+		this.text = text;
+	}
 }
