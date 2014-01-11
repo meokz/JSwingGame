@@ -3,6 +3,8 @@ import java.awt.event.*;
 
 class Monster extends GameObject {
 
+	Skill[] skills = new Skill[4];
+
 	// 名前, HPゲージ, SPゲージ
 	StatusBox statusBox;
 	
@@ -34,5 +36,10 @@ class Monster extends GameObject {
 		statusBox.draw(panel, graphics, this);
 
 		graphics.drawImage(this.image, this.image_x, this.image_y, panel);
+	}
+
+	// 仮メソッド
+	public String[] getSkillsName() {
+		return null;
 	}
 }

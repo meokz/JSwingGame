@@ -42,7 +42,7 @@ class BattleScene extends GameScene {
 		command = new CommandBox(900, 500, 350, 170, commands);
 		gameObjects.add(command);
 		
-		String[] skills = {"すごいパンチ", "トンファーキック", "ああああ", "いいいい" };
+		String[] skills = player.getSkillsName();
 		skill = new CommandBox(30, 500, 850, 170, 230, skills);
 		
 		point = new MessageBox(900, 500, 350, 170, "");
@@ -62,7 +62,7 @@ class BattleScene extends GameScene {
 			
 			// 自分の攻撃フェーズ
 			case Player : {
-				if(attack == 0) {
+				if(attack == 0 && player.skills[0].end) {
 					// 自分の攻撃終了。敵の攻撃フェーズへ
 					state = BattleState.Enemy;
 					message.setText("てきの攻撃！！！");
@@ -94,6 +94,10 @@ class BattleScene extends GameScene {
 	
 	public void draw(Graphics2D graphics) {
 		for(GameObject gameObject : gameObjects) gameObject.draw(panel, graphics);
+
+		if(state == BattleState.Player && !player.skills[0].end) {
+			player.skills[0].draw(panel, graphics, 500, 100);
+		}
 	}
 	
 	public void input(KeyEvent key) {
@@ -134,6 +138,7 @@ class BattleScene extends GameScene {
 			case 0 : {
 				state = BattleState.Player;
 				attack = player.status.attack;
+				player.skills[0].end = false;
 				gameObjects.remove(skill);
 				gameObjects.add(message);
 				message.setText("おれの攻撃！！！");
