@@ -1,0 +1,7 @@
+ホーリーブレイド
+Resorce\\Effect\\Skill2.png
+10
+1
+240
+240
+2
