@@ -10,4 +10,4 @@ Java Swingの仕様に影響されないゲーム設計をすることを目指�
 学校の友人作成
   
 ・Resorce/Skill[1~5].png  
-ぴぽや http://piposozai.blog76.fc2.com
+ぴぽや様 http://piposozai.blog76.fc2.com
