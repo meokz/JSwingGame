@@ -1,7 +1,9 @@
 ‰³—‚Ì–ü‚â‚µ
-Resorce\\Effect\\Skill2.png
-10
-1
+270
+270
+Resorce\\Effect\\Skill4.png
+5
+4
 240
 240
 0

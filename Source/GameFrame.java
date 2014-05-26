@@ -1,4 +1,4 @@
-// import java.util.*;
+import java.io.*;
 import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;
@@ -17,13 +17,14 @@ class GameFrame extends JFrame {
 		super();
 		
 		// ウィンドウの設定
-		this.setTitle("げーむたいとる");
+		this.setTitle("PokeDora");
 		this.setSize(GameFrame.Height, GameFrame.Width);
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		panel = new DrawPanel();
 		this.getContentPane().add(panel);
 		this.addKeyListener(panel);
 
+		// フォントの生成
 		new FontInstance();
 	}
 	
@@ -43,10 +44,20 @@ class DrawPanel extends JPanel implements KeyListener {
 	Timer timer;
 	
 	public DrawPanel() {
-		// タイトル画面を生成
-		this.setScene(new TitleScene(this));
-		// Timerを設定(30fps)
-		timer = new Timer(33, new TimerListener());
+		try {
+			java.util.Scanner sc = new java.util.Scanner(new File("Resorce\\Setting.inf"));
+
+			if(sc.nextInt() == 0) {
+				// タイトル画面を生成
+				this.setScene(new TitleScene(this));
+			} else {
+				// 発表用
+				this.setScene(new OpeningMovieScene(this));
+			}
+
+			// Timerを設定
+			timer = new Timer(sc.nextInt(), new TimerListener());
+		} catch(Exception e) { }
 	}
 	
 	// タイマーをスタート
@@ -68,6 +79,7 @@ class DrawPanel extends JPanel implements KeyListener {
 		// アンチエイジングの設定
 		graphics.setRenderingHint(RenderingHints.KEY_TEXT_ANTIALIASING,
 			RenderingHints.VALUE_TEXT_ANTIALIAS_ON);
+		
 		// シーンの描画
 		scene.draw(graphics);
 	}

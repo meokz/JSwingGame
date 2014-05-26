@@ -3,7 +3,7 @@ Character1.png
 2939
 1407
 510
-Skill1
-Skill2
-Skill1
-Skill2
+Skill5
+Skill6
+Skill7
+Skill8

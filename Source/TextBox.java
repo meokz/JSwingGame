@@ -1,3 +1,5 @@
+import java.awt.*;
+import javax.imageio.*;
 
 class TextBox extends GameObject {
 	Font font;
@@ -15,7 +17,6 @@ class TextBox extends GameObject {
 		font = FontInstance.meiryo20;
 	}
 	
-	@Override
 	public void draw(Graphics2D graphics) {
 		graphics.setFont(this.font);
 		graphics.drawString(this.text, this.x, this.y);

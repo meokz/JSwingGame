@@ -32,7 +32,9 @@ class StatusBox {
 
 	public void draw(DrawPanel panel, Graphics2D graphics, Monster monster) {
 		int width = gageHP.width + margin_x * 2;
-		int height = gageHP.height + gageSP.height + 40 + margin_y * 2;
+		int height;
+		if(monster.flag) height = gageHP.height + gageSP.height + 40 + margin_y * 2;
+		else height = gageHP.height + 40 + margin_y;
 
 		graphics.setColor(Color.white);
 		graphics.fillRect(this.x - 1, this.y - 1, width, height);
@@ -46,12 +48,16 @@ class StatusBox {
 		
 		// HPゲージ表示
 		gageHP.draw(panel, graphics, monster.status.HP, monster.HP);
-		graphics.drawString(monster.HP + " / " + monster.status.HP, 
-		gageHP.x + 10, gageHP.y + 27);
+		// if(monster.flag) {
+			graphics.drawString(monster.HP + " / " + monster.status.HP, 
+			gageHP.x + 10, gageHP.y + 27);
+		// }
 
 		// SPゲージ表示
-		gageSP.draw(panel, graphics, monster.status.SP, monster.SP);
-		graphics.drawString(monster.SP + " / " + monster.status.SP,
-			gageSP.x + 10, gageSP.y + 20);
+		if(monster.flag) {
+			gageSP.draw(panel, graphics, monster.status.SP, monster.SP);
+			graphics.drawString(monster.SP + " / " + monster.status.SP,
+				gageSP.x + 10, gageSP.y + 20);
+		}
 	}
 }

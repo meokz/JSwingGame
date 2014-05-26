@@ -10,6 +10,10 @@ class Skill {
 	// エフェクトの画像
 	Image image;
 
+	int x;
+
+	int y;
+
 	//エフェクトの描画終了フラグ
 	boolean end = true;
 
@@ -36,6 +40,8 @@ class Skill {
 		try {
 			Scanner sc = new Scanner(new File(fileName));
 			this.name = sc.next();
+			this.x = sc.nextInt();
+			this.y = sc.nextInt();
 			this.image = ImageIO.read(new File(sc.next()));
 			this.hori = sc.nextInt();
 			this.vertic = sc.nextInt();
@@ -46,7 +52,7 @@ class Skill {
 		} catch(Exception e) { }
 	}
 
-	public void draw(DrawPanel panel, Graphics2D graphics, int x, int y) {
+	public void draw(DrawPanel panel, Graphics2D graphics) {
 		if(this.end) return;
 
 		// x + 好きな値　でもいける。汎用性

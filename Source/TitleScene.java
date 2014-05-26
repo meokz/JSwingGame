@@ -6,9 +6,10 @@ import javax.imageio.*;
 // タイトル画面
 class TitleScene extends GameScene {
 	Image image;
-	
+
 	public TitleScene(DrawPanel panel) {
 		super(panel);
+
 		try {
 			image = ImageIO.read(new File("Resorce\\Title.jpg"));
 		} catch(Exception e) { }
@@ -21,7 +22,6 @@ class TitleScene extends GameScene {
 	
 	@Override
 	public void draw(Graphics2D graphics) {
-		graphics.drawString("たいとる画面", 30, 30);
 		graphics.drawImage(image, 0, 0, panel);
 	}
 	

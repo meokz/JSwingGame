@@ -23,6 +23,12 @@ class Monster extends GameObject {
 	// モンスターの現在のスキルポイント
 	int SP;
 
+	// モンスターの現在の攻撃倍率
+	float attack = 1.0f;
+
+	// trueならプレイヤー, falseなら敵
+	boolean flag = true;
+
 
 	public Monster(String name) {
 		try {

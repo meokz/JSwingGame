@@ -1,5 +1,7 @@
 çUåÇë‘ê®
-Resorce\\Effect\\Skill1.png
+270
+270
+Resorce\\Effect\\Skill3.png
 5
 3
 240
